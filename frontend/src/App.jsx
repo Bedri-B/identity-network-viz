@@ -1,50 +1,99 @@
-import { useEffect, useState } from "react";
-import { fetchSampleLayout } from "./api";
-import GraphView from "./GraphView";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import PhaseShell from "./components/PhaseShell";
+import CardDiscovery from "./pages/CardDiscovery";
+import ImportanceRating from "./pages/ImportanceRating";
+import PairwiseMapping from "./pages/PairwiseMapping";
+import QualtricsRedirect from "./pages/QualtricsRedirect";
+import Report from "./pages/Report";
+import SampleDemo from "./pages/SampleDemo";
+import { SessionProvider, useSession } from "./session/SessionContext";
+
+function BootstrapStatus() {
+  const { status, error } = useSession();
+  if (status === "error") {
+    return (
+      <p className="status-line status-error">
+        Couldn&apos;t reach the backend at the configured API base: {String(error?.message ?? error)}
+      </p>
+    );
+  }
+  return <p className="status-line">Initializing session…</p>;
+}
+
+function RequireSession({ children }) {
+  const { status } = useSession();
+  if (status !== "ready") return <BootstrapStatus />;
+  return children;
+}
+
+function Home() {
+  const { status, session } = useSession();
+  if (status !== "ready") return <BootstrapStatus />;
+  return <Navigate to={`/phase/${session.current_phase}`} replace />;
+}
 
 export default function App() {
-  const [state, setState] = useState({ status: "loading", data: null, error: null });
-
-  useEffect(() => {
-    let cancelled = false;
-    fetchSampleLayout()
-      .then((data) => {
-        if (!cancelled) setState({ status: "ready", data, error: null });
-      })
-      .catch((error) => {
-        if (!cancelled) setState({ status: "error", data: null, error });
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   return (
-    <div className="app-shell">
-      <header className="app-header">
-        <p className="eyebrow">Milestone 3 proof of concept</p>
-        <h1>Cognitive Identity Network — Layout Engine</h1>
-        <p className="subtitle">
-          Django REST Framework + NetworkX compute a fixed-seed force-directed layout and Louvain
-          community clusters server-side; React renders it as hand-rolled SVG with wrapped,
-          collision-avoided labels — no client-side layout math, no D3.
-        </p>
-      </header>
-
-      <main>
-        {state.status === "loading" && <p className="status-line">Requesting layout from Django…</p>}
-        {state.status === "error" && (
-          <p className="status-line status-error">
-            Couldn&apos;t reach the backend at the configured API base. Is <code>manage.py runserver</code> running?
-          </p>
-        )}
-        {state.status === "ready" && <GraphView data={state.data} />}
-      </main>
-
-      <footer className="app-footer">
-        Sample dataset: 15 items / 24 pairwise synergy &amp; tension ratings from a mock Future-Work-Self
-        session. Seed {state.data?.seed ?? "—"} — identical on every reload.
-      </footer>
-    </div>
+    <BrowserRouter>
+      <SessionProvider>
+        <div className="app-shell">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/phase/1"
+              element={
+                <RequireSession>
+                  <PhaseShell>
+                    <CardDiscovery />
+                  </PhaseShell>
+                </RequireSession>
+              }
+            />
+            <Route
+              path="/phase/3"
+              element={
+                <RequireSession>
+                  <PhaseShell>
+                    <ImportanceRating />
+                  </PhaseShell>
+                </RequireSession>
+              }
+            />
+            <Route
+              path="/phase/4"
+              element={
+                <RequireSession>
+                  <PhaseShell>
+                    <PairwiseMapping />
+                  </PhaseShell>
+                </RequireSession>
+              }
+            />
+            <Route
+              path="/phase/5"
+              element={
+                <RequireSession>
+                  <PhaseShell>
+                    <QualtricsRedirect />
+                  </PhaseShell>
+                </RequireSession>
+              }
+            />
+            <Route
+              path="/phase/6"
+              element={
+                <RequireSession>
+                  <PhaseShell>
+                    <Report />
+                  </PhaseShell>
+                </RequireSession>
+              }
+            />
+            <Route path="/sample" element={<SampleDemo />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+      </SessionProvider>
+    </BrowserRouter>
   );
 }

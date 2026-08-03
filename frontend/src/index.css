@@ -143,3 +143,265 @@ body {
   font-size: 12.5px;
   color: var(--text-dim);
 }
+
+/* Phase shell / session journey */
+
+.phase-shell {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.phase-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.sgic-badge {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.sgic-badge strong {
+  color: var(--accent);
+  letter-spacing: 0.06em;
+}
+
+.progress-steps {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.progress-steps .step {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--panel-border);
+  color: var(--text-dim);
+}
+
+.progress-steps .step.active {
+  border-color: var(--accent);
+  color: #f2f4fb;
+  background: rgba(108, 140, 255, 0.15);
+}
+
+.progress-steps .step.done {
+  color: #7fd99a;
+  border-color: rgba(127, 217, 154, 0.4);
+}
+
+.phase-main h2 {
+  font-size: 22px;
+  margin: 0 0 10px;
+  color: #f2f4fb;
+}
+
+.phase-copy {
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 0 16px;
+}
+
+.selection-count {
+  font-size: 13px;
+  color: var(--accent);
+  margin: 0 0 14px;
+}
+
+.catalog-group {
+  margin-bottom: 18px;
+}
+
+.catalog-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.item-card {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.item-card:hover {
+  border-color: var(--accent);
+}
+
+.item-card.selected {
+  background: rgba(108, 140, 255, 0.18);
+  border-color: var(--accent);
+  color: #f2f4fb;
+}
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 20px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0b0f1a;
+}
+
+.btn-secondary {
+  background: transparent;
+}
+
+.slider-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 28px;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.slider-label,
+.spoke-label {
+  font-size: 14px;
+}
+
+.slider-value {
+  text-align: right;
+  color: var(--text-dim);
+  font-size: 13px;
+}
+
+.hub-panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+
+.hub-node {
+  font-size: 18px;
+  font-weight: 650;
+  color: #f2f4fb;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.spoke-row {
+  display: grid;
+  grid-template-columns: 180px auto 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 0;
+}
+
+.toggle-group {
+  display: flex;
+  gap: 6px;
+}
+
+.toggle {
+  font: inherit;
+  font-size: 12px;
+  text-transform: capitalize;
+  border-radius: 6px;
+  border: 1px solid var(--panel-border);
+  background: transparent;
+  color: var(--text-dim);
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.toggle-synergy.active {
+  background: rgba(47, 158, 68, 0.2);
+  border-color: #2f9e44;
+  color: #7fd99a;
+}
+
+.toggle-tension.active {
+  background: rgba(224, 49, 49, 0.2);
+  border-color: #e03131;
+  color: #ff9b9b;
+}
+
+.toggle-none.active {
+  border-color: var(--text-dim);
+  color: var(--text);
+}
+
+.report-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.importance-summary {
+  margin-top: 20px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 18px 22px;
+}
+
+.importance-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 40px;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.importance-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.importance-fill {
+  height: 100%;
+  background: var(--accent);
+}
+
+.importance-value {
+  text-align: right;
+  font-size: 12.5px;
+  color: var(--text-dim);
+}
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
