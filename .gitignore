@@ -1,0 +1,16 @@
+proposal.txt
+
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/db.sqlite3
+*.pyc
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.playwright-mcp/
+
+# Editor/OS
+.DS_Store
