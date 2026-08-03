@@ -6,6 +6,13 @@ from .models import Item, Relation
 from .serializers import GraphLayoutRequestSerializer, ItemModelSerializer, RelationModelSerializer
 
 
+class CatalogView(APIView):
+    """The full item catalog a Card Discovery deck is built from."""
+
+    def get(self, request):
+        return Response({"items": ItemModelSerializer(Item.objects.all(), many=True).data})
+
+
 class GraphLayoutView(APIView):
     """
     GET  -> layout for the seeded sample identity network (DB-backed).
